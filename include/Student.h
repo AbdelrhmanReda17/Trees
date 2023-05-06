@@ -20,6 +20,9 @@ public:
     void setGPA(float gpa);
     string getDepartment();
     void setDepartment(string department);
+    void addinfo();
+    void print();
+
 };
 
 #endif

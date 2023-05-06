@@ -5,10 +5,10 @@ using namespace std;
 
 class Node{
 public:
-    Student* student;
+    Student student;
     Node *left;
     Node *right;
-    Node(Student* student){
+    Node(Student student){
         this->student=student;
         left=right=NULL;
     }

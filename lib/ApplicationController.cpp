@@ -21,11 +21,12 @@ void ApplicationController::GetStudents(int n) {
     int id;
     double gpa;
     std::string department, name;
+    cin.ignore();
     for(int i = 0; i < n; i++) {
-        std::cin >> id; stds[i].setID(id);
-        std::cin >> name; stds[i].setName(name);
-        std::cin >> gpa; stds[i].setGPA(gpa);
-        std::cin >> department; stds[i].setDepartment(department);
+        std::cin >> id; stds[i].setID(id); cin.ignore();
+        getline(cin , name); stds[i].setName(name);
+        std::cin >> gpa; stds[i].setGPA(gpa); cin.ignore();
+        getline(cin , department); stds[i].setDepartment(department);
     }
     setStudents(stds);
 }
@@ -42,16 +43,16 @@ void ApplicationController::MainMenu(){
         switch (choose)
         {
         case 1:
-            ts = new BST();
+            ts = new BST(stds);
             break;
         case 2:
-            ts = new AVL();
+            ts = new AVL(stds);
             break;
         case 3:
-            ts = new Min_Heap();
+            ts = new Min_Heap(stds);
             break;
         case 4:
-            ts = new Max_Heap();
+            ts = new Max_Heap(stds);
             break;
         case 0:
             isExit = true;
@@ -84,12 +85,16 @@ void ApplicationController::AlternativeMenu(){
         switch (choose)
         {
             case 1:
-                //std.addinfo();
+                std.addinfo();
                 ts->insert(std);
                 break;
             case 2:{
                 if(isAVLBST){
-                    ts->remove(0);
+                    cout << "------------------------------------------------------------------------\n";
+                    cout << "Enter the id of Student :";
+                    int id; cin >> id;
+                    ts->remove(id);
+                    cout << "------------------------------------------------------------------------\n";
                 }else{
                     ts->printAll();
                 }
@@ -97,7 +102,13 @@ void ApplicationController::AlternativeMenu(){
             }
             case 3:
                 if(isAVLBST)
-                    ts->search(0);
+                    {
+                        cout << "------------------------------------------------------------------------\n";
+                        cout << "Enter the id of Student :";
+                        int id; cin >> id;
+                        ts->search(id);
+                        cout << "------------------------------------------------------------------------\n";
+                    }
                 else
                     cout << "Wrong Choose , Please Enter Again\n";
                 break;
