@@ -8,21 +8,23 @@ class Student {
 private:
     int id;
     string name;
-    float gpa;
+    double gpa;
     string department;
 
 public:
+    Student(){}
     int getID();
-    void setID(int id);
     string getName();
-    void setName(string name);
-    float getGPA();
-    void setGPA(float gpa);
+    Student(string name, int id, double gpa, string department){
+        this->name=name;
+        this->id=id;
+        this->department=department;
+        this->gpa=gpa;
+    }
+    double getGPA();
     string getDepartment();
-    void setDepartment(string department);
     void addinfo();
     void print();
-
 };
 
 #endif

@@ -9,29 +9,35 @@ void ApplicationController::setStudents(std::vector<Student> stds) {
 }
 
 
-void ApplicationController::StartApplication() {
+void ApplicationController::StartApplication(string file) {
+    this->file = file;
     std::cout << "Welcome to our X School" << std::endl;
-    std::cout << "Please Enter the number of Students :" << std::endl;
-    int n; std::cin >> n;
-    GetStudents(n);
+    GetStudents();
     MainMenu();
 }
-void ApplicationController::GetStudents(int n) {
-    std::vector<Student> stds(n);
-    int id;
-    double gpa;
-    std::string department, name;
-    cin.ignore();
-    for(int i = 0; i < n; i++) {
-        std::cin >> id; stds[i].setID(id); cin.ignore();
-        getline(cin , name); stds[i].setName(name);
-        std::cin >> gpa; stds[i].setGPA(gpa); cin.ignore();
-        getline(cin , department); stds[i].setDepartment(department);
-    }
+void ApplicationController::GetStudents() {
+    std::vector<Student> stds;
+    ifstream infile(file);
+        int numStudents;
+        infile>>numStudents;
+        infile.ignore(); // skip the newline character
+        for (int i = 0; i < numStudents; i++) {
+            int id;
+            string name, major;
+            double gpa;
+            infile >> id;
+            infile.ignore(); // skip the space character
+            getline(infile, name);
+            infile >> gpa >> major;
+            infile.ignore(); // skip the newline character
+            Student student(name, id, gpa, major);
+            stds.push_back(student);
+        }
+    infile.close();
     setStudents(stds);
 }
 void ApplicationController::MainMenu(){
-    bool isExit = false;
+    bool isExit = false , isAVLBST =false;
     while(true){
         cout << "Choose Data Structure:\n";
         cout << "1. BST\n"
@@ -43,16 +49,20 @@ void ApplicationController::MainMenu(){
         switch (choose)
         {
         case 1:
-            ts = new BST(stds);
+            ts = new BST(stds); 
+            isAVLBST=true;
             break;
         case 2:
             ts = new AVL(stds);
+            isAVLBST=true;
             break;
         case 3:
-            ts = new Min_Heap(stds);
+            hp = new Min_Heap(stds);
+            isAVLBST=false;
             break;
         case 4:
-            ts = new Max_Heap(stds);
+            hp = new Max_Heap(stds);
+            isAVLBST=false;
             break;
         case 0:
             isExit = true;
@@ -65,15 +75,11 @@ void ApplicationController::MainMenu(){
             cout << "Thanks";
             break;
         }else{
-            AlternativeMenu();
+            AlternativeMenu(isAVLBST);
         }
     }
 }
-void ApplicationController::AlternativeMenu(){
-    bool isAVLBST = false , isExit = false;
-    if(ts->getName() == "AVL" || ts->getName() == "BST"){
-        isAVLBST = true;
-    }
+void ApplicationController::AlternativeMenu(bool isAVLBST){
     Student std;
     while(true){
         cout << "Choose one of the following options:\n";
@@ -86,7 +92,10 @@ void ApplicationController::AlternativeMenu(){
         {
             case 1:
                 std.addinfo();
-                ts->insert(std);
+                if(isAVLBST)
+                    ts->insert(std);
+                else
+                    hp->insert(std);
                 break;
             case 2:{
                 if(isAVLBST){
@@ -96,7 +105,7 @@ void ApplicationController::AlternativeMenu(){
                     ts->remove(id);
                     cout << "------------------------------------------------------------------------\n";
                 }else{
-                    ts->printAll();
+                    hp->printAll();
                 }
                 break;
             }

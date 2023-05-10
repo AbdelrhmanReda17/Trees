@@ -4,5 +4,5 @@
 int main()
 {
      ApplicationController appController;
-     appController.StartApplication();
+     appController.StartApplication("input.txt");
 }

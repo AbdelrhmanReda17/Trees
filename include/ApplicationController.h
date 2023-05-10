@@ -8,13 +8,14 @@ class ApplicationController {
 private:
     std::vector<Student> stds;
     Tree* ts = nullptr;
-
+    Heap* hp = nullptr;
+    string file;
 public:
-    void GetStudents(int n);
-    void StartApplication();
+    void GetStudents();
+    void StartApplication(string file);
     void setStudents(std::vector<Student> stds);
     void MainMenu();
-    void AlternativeMenu();
+    void AlternativeMenu(bool isAVLBST);
 };
 
 #endif

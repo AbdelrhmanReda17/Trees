@@ -8,6 +8,7 @@ public:
     Student student;
     Node *left;
     Node *right;
+    int height;
     Node(Student student){
         this->student=student;
         left=right=NULL;
