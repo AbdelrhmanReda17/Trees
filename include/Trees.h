@@ -12,31 +12,25 @@ class Heap{
     int leftChild(int i);
     int rightChild(int i);
     void setStudents(vector<Student> stds);
-    vector<Student> stds;    
-  private:
-    string name;
+    vector<Student> stds;  
+    string name;  
   public:
     virtual void insert(Student std) = 0;
-    virtual void heapSort(int n) = 0;
-    virtual void printAll() = 0;
+    void heapSort(int n);
+    void printAll() ;
+    virtual void Heapfiy(int n ,int i) = 0;
 };
 class Min_Heap :public Heap{
-private:
-    void Heapfiy(int n ,int i);
 public:
     Min_Heap(vector<Student>);
     void insert(Student std) override;
-    void printAll() override;
-    void heapSort(int n) override;
+    void Heapfiy(int n ,int i) override;
 };
 class Max_Heap :public Heap{
-private:
-    void Heapfiy(int n ,int i);
 public:
     Max_Heap(vector<Student>);
     void insert(Student std) override;
-    void heapSort(int n) override;
-    void printAll() override;
+    void Heapfiy(int n ,int i) override;
 };
 
 class Tree{

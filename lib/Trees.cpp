@@ -19,6 +19,40 @@ string Tree::getName(){
 void Heap::setStudents(vector<Student> stds){
     this->stds = stds;
 }
+int Heap::parent(int i) {return (i - 1) / 2; }
+int Heap::leftChild(int i) { return 2 * i + 1; }
+int Heap::rightChild(int i) { return 2 * i + 2; }
+
+void Heap::heapSort(int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+        Heapfiy(n, i);
+
+    for (int i = n - 1; i >= 0; i--) {
+        swap(stds[0], stds[i]);
+        Heapfiy(i, 0);
+    }
+}
+void Heap::printAll(){
+    map<string , int> mp;
+    cout << "------------------------------------------------------------------------\n";
+    cout << "Students sorted by GPA: " << endl;
+    if(name == "Max Heap" ){
+        for(int i = stds.size() - 1 ; i >= 0 ; i--){
+            stds[i].print();
+            mp[stds[i].getDepartment()]++;
+        }
+    }else{
+        for(int i = 0 ; i < stds.size() ; i++){
+            stds[i].print();
+            mp[stds[i].getDepartment()]++;
+        }
+    }
+    cout << "Students per Departments:" << endl;
+    for(auto it : mp){
+        cout << it.first << " "<< it.second << " Students" << endl;
+    }
+    cout << "------------------------------------------------------------------------\n";
+}
 //----------------------------------------------------------------------------------------------------------
 // ---------------------------------------------- BST ------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
@@ -324,6 +358,7 @@ void AVL::setStudents(vector<Student> students) {
 // ---------------------------------------------- Min_Heap -------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
 Min_Heap::Min_Heap(vector<Student> stds){
+    Heap::name="Min Heap";
     Heap::setStudents(stds);
     heapSort(stds.size());
 }
@@ -347,38 +382,13 @@ void Min_Heap::Heapfiy(int n ,int i){
         Heapfiy(n,smallest);
     }
 }
-void Min_Heap::heapSort(int n) {
-    for (int i = n / 2 - 1; i >= 0; i--)
-        Heapfiy(n, i);
-
-    for (int i = n - 1; i >= 0; i--) {
-        swap(stds[0], stds[i]);
-        Heapfiy(i, 0);
-    }
-}
-void Min_Heap::printAll(){
-    map<string , int> mp;
-    cout << "------------------------------------------------------------------------\n";
-    cout << "Students sorted by GPA: " << endl;
-    for(int i = 0 ; i < stds.size() ; i++){
-        stds[i].print();
-        mp[stds[i].getDepartment()]++;
-    }
-    cout << "Students per Departments:" << endl;
-    for(auto it : mp){
-        cout << it.first << " "<< it.second << " Students" << endl;
-    }
-    cout << "------------------------------------------------------------------------\n";
-}
-int Heap::parent(int i) {return (i - 1) / 2; }
-int Heap::leftChild(int i) { return 2 * i + 1; }
-int Heap::rightChild(int i) { return 2 * i + 2; }
 
 //----------------------------------------------------------------------------------------------------------
 // ---------------------------------------------- Max_Heap -------------------------------------------------
 //----------------------------------------------------------------------------------------------------------
 Max_Heap::Max_Heap(vector<Student> stds){
     Heap::setStudents(stds);
+    Heap::name="Max Heap";
     heapSort(stds.size());
 }
 void Max_Heap::insert(Student std) {
@@ -400,29 +410,5 @@ void Max_Heap::Heapfiy(int n , int i){
         swap(stds[i], stds[largest]);
         Heapfiy(n , largest);
     }
-}
-void Max_Heap::heapSort(int n) {
-    for (int i = n / 2 - 1; i >= 0; i--)
-        Heapfiy(n, i);
-
-    for (int i = n - 1; i >= 0; i--) {
-        swap(stds[0], stds[i]);
-        Heapfiy(i, 0);
-    }
-}
-
-void Max_Heap::printAll(){
-    map<string , int> mp;
-    cout << "------------------------------------------------------------------------\n";
-    cout << "Students sorted by GPA: " << endl;
-    for(int i = stds.size() - 1 ; i >= 0 ; i--){
-        stds[i].print();
-        mp[stds[i].getDepartment()]++;
-    }
-    cout << "Students per Departments:" << endl;
-    for(auto it : mp){
-        cout << it.first << " "<< it.second << " Students" << endl;
-    }
-    cout << "------------------------------------------------------------------------\n";
 }
 //----------------------------------------------------------------------------------------------------------
