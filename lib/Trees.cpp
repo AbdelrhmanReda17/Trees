@@ -371,10 +371,10 @@ void Min_Heap::Heapfiy(int n ,int i){
     int left = leftChild(i);
     int right = rightChild(i);
     int smallest = i;
-    if(left < n && stds[left].getGPA() < stds[smallest].getGPA()){
+    if(left < n && stds[left].getGPA() > stds[smallest].getGPA()){
         smallest = left;
     }
-    if(right < n && stds[right].getGPA() < stds[smallest].getGPA()){
+    if(right < n && stds[right].getGPA() > stds[smallest].getGPA()){
         smallest = right;
     }
     if(smallest != i){
@@ -400,10 +400,10 @@ void Max_Heap::Heapfiy(int n , int i){
     int left = leftChild(i);
     int right = rightChild(i);
     int largest = i;
-    if(left < n && stds[left].getGPA() > stds[largest].getGPA()){
+    if(left < n && stds[left].getGPA() < stds[largest].getGPA()){
         largest = left;
     }
-    if(right < n && stds[right].getGPA() > stds[largest].getGPA()){
+    if(right < n && stds[right].getGPA() < stds[largest].getGPA()){
         largest = right;
     }
     if(largest != i){
