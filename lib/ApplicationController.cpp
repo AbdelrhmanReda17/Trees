@@ -85,7 +85,7 @@ void ApplicationController::AlternativeMenu(bool isAVLBST){
         cout << "Choose one of the following options:\n";
         cout << "1. Add student\n";
         cout  << (isAVLBST ? "2. Remove student\n3. Search student\n4. " : "2. ");
-        cout << "Print All (sorted by id)\n"
+        cout << "Print All [ORDERED]\n"
                 "0. Return to main menu:\n";
         int choose; cin >> choose;
         switch (choose)

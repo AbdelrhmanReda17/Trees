@@ -359,7 +359,7 @@ void Min_Heap::heapSort(int n) {
 void Min_Heap::printAll(){
     map<string , int> mp;
     cout << "------------------------------------------------------------------------\n";
-    cout << "Students sorted by ID: " << endl;
+    cout << "Students sorted by GPA: " << endl;
     for(int i = 0 ; i < stds.size() ; i++){
         stds[i].print();
         mp[stds[i].getDepartment()]++;
@@ -414,7 +414,7 @@ void Max_Heap::heapSort(int n) {
 void Max_Heap::printAll(){
     map<string , int> mp;
     cout << "------------------------------------------------------------------------\n";
-    cout << "Students sorted by ID: " << endl;
+    cout << "Students sorted by GPA: " << endl;
     for(int i = stds.size() - 1 ; i >= 0 ; i--){
         stds[i].print();
         mp[stds[i].getDepartment()]++;
